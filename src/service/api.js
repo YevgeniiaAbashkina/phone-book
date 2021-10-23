@@ -101,3 +101,11 @@ export const deleteMyContact = async(id)=>{
         throw new Error(error.response.data.message)
     }
 }
+
+export const deleteMyAllContacts = async()=>{
+    try{
+        await client.delete(`/api/my-contacts/all`)
+    }catch(error){
+        throw new Error(error.response.data.message)
+    }
+}

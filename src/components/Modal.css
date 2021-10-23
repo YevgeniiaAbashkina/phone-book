@@ -1,0 +1,53 @@
+.modal__wrapper{    
+    position: fixed;
+    margin: -100px auto;
+    bottom:0;
+    width: 900px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 40px 10px;
+}  
+
+.modal__wrapper .open{
+    height: 100%;
+    display:block;
+}
+
+.modal__wrapper.close{
+    height: 0;
+    display:none;
+}
+
+.modal__body{
+    text-align: right;
+    max-width: 500px;
+    margin: 0px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 400px;
+}
+
+.modal__body h2{
+    text-align: center;
+    width: 100%;
+    margin-top: 20;
+}
+
+.modal__body button{
+    padding:10px 40px;
+    background-color:rgb(32,161,142);
+    color:white;
+    border-radius:5px;
+    outline:none;
+    border:none;
+}
+
+.modal__close{
+    text-align: right;
+    margin-top: -15px;
+    font-size: 30px;
+    color: gray;
+    cursor: pointer;
+}

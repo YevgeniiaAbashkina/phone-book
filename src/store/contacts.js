@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { startLoading, stopLoading } from './app';
-import { addNewContact, deleteMyContact, getAllContacts, updateMyContact } from '../service/api';
+import { addNewContact, deleteMyContact, getAllContacts, updateMyContact,deleteMyAllContacts } from '../service/api';
 import {createSelector} from 'reselect'
 
 const initialState = {
@@ -21,16 +21,19 @@ const contactsReducer = createSlice({
             const index = state.contacts.findIndex(contact => contact.id === payload.contact.id)
             state.contacts[index] = payload.contact
         },
-        deleteContact: (state,{payload}) =>{
+        deleteContact: (state, {payload}) =>{
             console.log(payload.id)
             state.contacts = state.contacts.filter(contact => contact.id !== payload.id)
+        },
+        deleteAllContacts: (state, {payload}) =>{
+            state.contacts = payload.contacts
         }
     }
 })
 
 export default contactsReducer.reducer;
 
-export const {setContacts, addContact, updateContact, deleteContact} = contactsReducer.actions;
+export const {setContacts, addContact, updateContact, deleteContact, deleteAllContacts} = contactsReducer.actions;
 
 export const contactsSelector = state => state.contacts.contacts
 
@@ -84,6 +87,21 @@ export const deleteContactAction = (id)=>{
         try{
             await deleteMyContact(id)
             dispatch(deleteContact({id}))
+        }catch(error){
+            console.log(error)
+        }finally{
+            dispatch(stopLoading())
+        }
+    }
+}
+
+export const deleteAllContactsAction = (contacts)=>{
+    return async dispatch =>{
+        dispatch(startLoading())
+        try{
+            await deleteMyAllContacts()
+            dispatch(deleteAllContacts({contacts}))
+            
         }catch(error){
             console.log(error)
         }finally{

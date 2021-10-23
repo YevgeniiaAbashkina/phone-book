@@ -1,12 +1,17 @@
-import { getAllContactsAction, contactsSelector, deleteContactAction } from "../store/contacts";
+import { getAllContactsAction, contactsSelector, deleteContactAction, deleteAllContactsAction } from "../store/contacts";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Delete from "../images/trash.png";
 import { Button } from "./ContactView";
+import Modal from "./Modal";
 
 const ContactList = ()=>{
+
+    const [modal, setModal] = useState({
+        modal: false
+    })
 
     const contacts = useSelector(contactsSelector);
     const dispatch = useDispatch();
@@ -34,9 +39,23 @@ const ContactList = ()=>{
                 </Li>
             </NavLink> )}           
         </Ul>
-        <RemoveButton>Remove all contacts</RemoveButton>
+        <RemoveButton
+                onClick={()=>setModal({
+                    ...modal, modal: true
+                })}
+                >Remove all contacts
+        </RemoveButton>
         </>
         }
+        <Modal title={"Are you sure you want to delete all contacts?"}
+                isOpened={modal.modal} 
+                onModalClose={()=>setModal({...modal, modal:false})}
+                onModalOk={()=>{
+                    dispatch(deleteAllContactsAction(contacts))
+                    history.push('/')
+                    setModal({...modal, modal:false})
+                }}
+                />
         </Wrapper>
     )
 }
@@ -45,7 +64,6 @@ export default ContactList;
 
 export const Wrapper = styled.div`
     width: 46%;
-    
 `
 
 const Ul=styled.ul`
