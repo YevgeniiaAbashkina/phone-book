@@ -15,3 +15,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.active{
+  color: rgba(255, 255, 255, 0.68) !important;
+  text-transform: uppercase;
+}
+
+.contactActive{
+  background-color: rgba(32, 161, 142, 0.2);
+  color: black;
+  text-transform: uppercase;
+  display:  block;
+}

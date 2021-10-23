@@ -46,7 +46,8 @@ export const registration = async ({email, password})=>{
         await client.get(`/api/user/activation/${response.data}`);
         console.log("response.data",response.data)
     }catch(error){
-        throw new Error(error.message)
+        console.log(error, "registration")
+        throw new Error("user is already exist")
     }
 }
 
@@ -57,6 +58,46 @@ export const login = async ({email,password})=>{
         await client.post(`/api/user/login`, {email, password});
         console.log("login success")
     }catch(error){
-        throw new Error(error.message)
+        throw new Error("wrong email or password")
+    }
+}
+
+export const getAllContacts=async()=>{
+    try{
+        const response = await client.get("/api/my-contacts")
+        console.log(response)
+        return response.data
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const addNewContact = async(contact)=>{
+    try{
+        const  response = await client.post('/api/my-contacts', contact)
+        console.log(response)
+        return response.data
+    }catch(error){
+        console.dir(error)
+        throw new Error(error.response.data.message)
+    }
+}
+
+export const updateMyContact = async (contact)=>{
+    try{
+        const response = await client.put('/api/my-contacts', contact)
+        console.log(response)
+        return response.data
+    }catch(error){
+        console.dir(error)
+        throw new Error(error.response.data.message)
+    }
+}
+
+export const deleteMyContact = async(id)=>{
+    try{
+        await client.delete(`/api/my-contacts/${id}`)
+    }catch(error){
+        throw new Error(error.response.data.message)
     }
 }
