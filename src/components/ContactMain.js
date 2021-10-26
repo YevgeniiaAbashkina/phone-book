@@ -9,8 +9,8 @@ const ContactMain=()=>{
         <Wrapper>
             <ContactList/>
             <Switch>
-                <Route path="/contacts/add" exact component = {ContactForm}/>
-                <Route path="contacts/:id/edit" component={ContactForm}/>
+                <Route path="/contacts/:id/edit" component={ContactForm}/>
+                <Route path="/contacts/add"  component = {ContactForm}/>
                 <Route path="/contacts/:id" component={ContactView}/> 
             </Switch>
         </Wrapper>
