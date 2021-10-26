@@ -36,7 +36,10 @@ const ContactView = () => {
             </Row>
             <p>{contact.description}</p>
             <ButtonRow>
-            <Button onClick = {()=> history.push(`/contacts/${contact.id}/edit`)}>edit</Button>
+            <Button onClick = {()=> {
+                console.log("test edit")
+                history.push(`/contacts/${contact.id}/edit`)
+            }}>edit</Button>
                 <RemoveButton onClick = {()=>{ 
                     dispatch(deleteContactAction(contact.id))
                     history.push(`/contacts`)
